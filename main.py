@@ -1,12 +1,27 @@
 import cv2
 
-###Webcam setup###
-cap = cv2.VideoCapture(0) #if using multiple cameras, have 1 instead of 0
-cap.set(3,1280,) #set width of the frame
-cap.set(4,720) #set height of the frame
+### Webcam setup ###
+cap = cv2.VideoCapture(0)  # If using multiple cameras, change 0 to 1
+cap.set(3, 680)  # Set width slightly smaller than 720
+cap.set(4, 510)  # Set height slightly smaller than 540
 
-###What the webcam will show###
+imgBackground = cv2.imread("Resources/background.png")
+
+### What the webcam will show ###
 while True:
-    successs, img = cap.read()
-    cv2.imshow("Face Attendance",img)
-    cv2.waitKey(1)
+    success, img = cap.read()
+    
+    # Resize the webcam feed to match the new dimensions
+    img_resized = cv2.resize(img, (680, 510))  
+    
+    # Place the resized webcam feed in the background
+    imgBackground[175:175+510, 60:60+680] = img_resized  # Adjusted placement
+
+    cv2.imshow("Webcam", img_resized)
+    cv2.imshow("Face Attendance", imgBackground)
+    
+    if cv2.waitKey(1) & 0xFF == ord('q'):  # Press 'q' to exit
+        break
+
+cap.release()
+cv2.destroyAllWindows()
