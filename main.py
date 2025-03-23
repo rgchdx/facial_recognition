@@ -28,7 +28,7 @@ while True:
     
     # Place the resized webcam feed in the background
     imgBackground[175:175+510, 60:60+680] = img_resized  # Adjusted placement
-    imgBackground[44:44+633, 808:808+414] = mode_img_resized
+    imgBackground[53:53+633, 860:860+414] = mode_img_resized
 
     cv2.imshow("Webcam", img_resized)
     cv2.imshow("Face Attendance", imgBackground)
