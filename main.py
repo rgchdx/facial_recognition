@@ -23,7 +23,7 @@ while True:
     # Resize the webcam feed to match the new dimensions
     img_resized = cv2.resize(img, (680, 510))  
     mode_img_height, mode_img_width = imgModeList[0].shape[:2]
-    mode_img_resized = cv2.resize(imgModeList[0], (470, 700))
+    mode_img_resized = cv2.resize(imgModeList[2], (470, 700))
     
     
     # Place the resized webcam feed in the background
