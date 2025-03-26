@@ -23,12 +23,12 @@ while True:
     # Resize the webcam feed to match the new dimensions
     img_resized = cv2.resize(img, (680, 510))  
     mode_img_height, mode_img_width = imgModeList[0].shape[:2]
-    mode_img_resized = cv2.resize(imgModeList[0], (414, 633))
+    mode_img_resized = cv2.resize(imgModeList[0], (470, 700))
     
     
     # Place the resized webcam feed in the background
     imgBackground[175:175+510, 60:60+680] = img_resized  # Adjusted placement
-    imgBackground[53:53+633, 860:860+414] = mode_img_resized
+    imgBackground[50:50+700, 855:855+470] = mode_img_resized
 
     cv2.imshow("Webcam", img_resized)
     cv2.imshow("Face Attendance", imgBackground)
