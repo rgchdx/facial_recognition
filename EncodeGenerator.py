@@ -28,7 +28,7 @@ encodeListKnown = findEncoding(imgList)
 encodeListKnownWithIds = [encodeListKnown, faceIds]
 print('Encoding Complete')
 
-file = open('EncodeFile.p', 'wb')  # open a file in write binary mode
+file = open('EncodeFile.p', 'wb')  # open a file in write binary mode (pickling)
 pickle.dump(encodeListKnownWithIds, file)  # dump the encodeListKnownWithIds to the file
 file.close()
 print('Encode File Saved')

@@ -1,5 +1,6 @@
 import os
 import cv2
+import pickle
 
 ### Webcam setup ###
 cap = cv2.VideoCapture(0)  # If using multiple cameras, change 0 to 1
@@ -15,6 +16,13 @@ imgModeList = [] #create empty list to store all the images
 for path in modePathList: #iterate through the list of files
     imgModeList.append(cv2.imread(os.path.join(folderModePath,path))) #we use cv2 to read the images and appepend it to the list. Use os.path.join to get the full path of the image
 #print(len(imgModeList))
+
+# load the encoding file
+file = open('EncodeFile.p', 'rb')  # open a file in read binary mode (unpickling)
+encodeListKnownWithIds = pickle.load(file)
+file.close()
+encodeListKnown, faceIds = encodeListKnownWithIds
+print(faceIds)
 
 ### What the webcam will show ###
 while True:
