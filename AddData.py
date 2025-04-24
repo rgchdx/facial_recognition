@@ -50,4 +50,4 @@ student3 = {
 # response = supabase.table("sensor_data").insert(student3).execute()
 
 
-print("Response from Supabase:", response)
+# print("Response from Supabase:", response)
