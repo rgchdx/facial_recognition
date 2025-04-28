@@ -37,6 +37,13 @@ file.close()
 encodeListKnown, faceIds = encodeListKnownWithIds
 print(faceIds)
 print('Encode File Loaded')
+modeType = 3
+# 3 is active mode
+# 0 is showing info mode
+# 1 is showing attendance mode
+# 2 is showing already attended mode
+counter = 0 
+id = -1
 
 ### What the webcam will show ###
 while True:
@@ -45,7 +52,7 @@ while True:
     # Resize the webcam feed to match the new dimensions
     img_resized = cv2.resize(img, (680, 510))  
     mode_img_height, mode_img_width = imgModeList[0].shape[:2]
-    mode_img_resized = cv2.resize(imgModeList[2], (470, 700))
+    mode_img_resized = cv2.resize(imgModeList[modeType], (470, 700))
     
     imgS = cv2.resize(img_resized, (0, 0), None, 0.25, 0.25) 
     imgS = cv2.cvtColor(imgS, cv2.COLOR_BGR2RGB)
@@ -76,6 +83,15 @@ while True:
             y1, x2, y2, x1 = y1*4, x2*4, y2*4, x1*4  # Scale the face location back to the original size
             bbox = 50+x1, 175+y1, x2-x1, y2-y1  # Create a bounding box for the face 
             imageBackground = cvzone.cornerRect(imgBackground, bbox, rt=0)
+            id = faceIds[matchIndex] # Get the ID of the matched face
+            if counter == 0:
+                counter = 1
+                
+    ### FIND A WAY TO GET THE FACE ID FROM THE DATABASE ONCE!!! ###
+    if counter != 0:
+        if counter == 1:
+            faceInfo = supabase.table("sensor_data").select("*").
+        counter += 1 
             
 
     cv2.imshow("Webcam", img_resized)
