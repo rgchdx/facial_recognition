@@ -45,6 +45,7 @@ modeType = 3
 counter = 0 
 id = -1
 read = False
+name = ""
 
 ### What the webcam will show ###
 while True:
@@ -90,13 +91,25 @@ while True:
                 
     ### FIND A WAY TO GET THE FACE ID FROM THE DATABASE ONCE!!! ###
     if read:
-        id = supabase.table("sensor_data").select("id").eq("id", id).execute()
-        print(id)
-        modeType = 1
+        result = supabase.table("sensor_data").select("id","name").execute()
+        if(result.data and len(result.data) > 0):
+            #match the id with the database
+            for item in result.data:
+                if item['id'] == id:
+                    name = item['name']
+                    print("Name:", name)
+                    modeType = 1
+                    break
         mode_img_resized = imgModeList[modeType]
         read = False
+    else:
+        modeType = 0
+        mode_img_resized = imgModeList[modeType]
+    # Display the id and name of the person on top
+    # check this since implemented wrong.
+    cv2.putText(imgBackground, str(id), (855, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(imgBackground, str(name), (855, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
     
-            
 
     cv2.imshow("Webcam", img_resized)
     cv2.imshow("Face Attendance", imgBackground)
