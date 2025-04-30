@@ -92,6 +92,10 @@ while True:
     if read:
         id = supabase.table("sensor_data").select("id").eq("id", id).execute()
         print(id)
+        modeType = 1
+        mode_img_resized = imgModeList[modeType]
+        read = False
+    
             
 
     cv2.imshow("Webcam", img_resized)
