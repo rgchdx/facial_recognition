@@ -44,6 +44,7 @@ modeType = 3
 # 2 is showing already attended mode
 counter = 0 
 id = -1
+read = False
 
 ### What the webcam will show ###
 while True:
@@ -84,14 +85,13 @@ while True:
             bbox = 50+x1, 175+y1, x2-x1, y2-y1  # Create a bounding box for the face 
             imageBackground = cvzone.cornerRect(imgBackground, bbox, rt=0)
             id = faceIds[matchIndex] # Get the ID of the matched face
-            if counter == 0:
-                counter = 1
+            if not read:
+                read = True
                 
     ### FIND A WAY TO GET THE FACE ID FROM THE DATABASE ONCE!!! ###
-    if counter != 0:
-        if counter == 1:
-            faceInfo = supabase.table("sensor_data").select("*").
-        counter += 1 
+    if read:
+        id = supabase.table("sensor_data").select("id").eq("id", id).execute()
+        print(id)
             
 
     cv2.imshow("Webcam", img_resized)
